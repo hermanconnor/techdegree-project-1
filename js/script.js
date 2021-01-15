@@ -75,20 +75,22 @@ const quotes = [
   },
 ];
 
-/***************************
- * `getRandomQuote` function
- ***************************/
+// Generate Random Numbers
+function randomValue(num) {
+  return Math.floor(Math.random() * num);
+}
 
-// Function To Generate Random Numbers
-const randomValue = num => Math.floor(Math.random() * num);
-
-// EXTRA CREDIT: Function To Generate Random RGB Colors, added 'tags' property to objects above
+// Generate Random RGB Colors
 function randomRGB(value) {
   const color = `rgb(${value(256)}, ${value(256)}, ${value(256)})`;
   return color;
 }
 
-// Function To Get Quote Object From Array
+/***************************
+ * `getRandomQuote` function
+ ***************************/
+
+// Get Quote Object From Array
 function getRandomQuote() {
   // Generate Random Number
   const randomNumber = randomValue(quotes.length);
@@ -99,11 +101,27 @@ function getRandomQuote() {
 }
 
 /***********************
+ * Auto-refresh Quotes
+ ***********************/
+
+// Auto-refresh Quotes
+function myQuotes() {
+  printQuote();
+  document.querySelector('body').style.backgroundColor = randomRGB(randomValue);
+}
+
+let autoQuotes = setInterval(myQuotes, 5000);
+
+/***********************
  * `printQuote` function
  ***********************/
 
-// Function To Generate Random Quotes
+// Generate Random Quotes
 function printQuote() {
+  // Reset auto-refresh quotes when clicked
+  clearInterval(autoQuotes);
+  autoQuotes = setInterval(myQuotes, 5000);
+
   // Get a random quote object
   const randomQuote = getRandomQuote();
 
@@ -138,17 +156,8 @@ function printQuote() {
   // Display The Random Quote To The Page
   document.getElementById('quote-box').innerHTML = htmlString;
 
-  // EXTRA CREDIT: Random Background Colors
-  document.querySelector('body').style.backgroundColor = randomRGB(randomValue);
-
   return htmlString;
 }
-
-// EXTRA CREDIT: Auto-refreshed Quotes
-function myTimer() {
-  setInterval(printQuote, 10000);
-}
-myTimer();
 
 /*************************************************
  * click event listener for the print quote button
