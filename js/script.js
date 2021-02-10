@@ -107,7 +107,6 @@ function getRandomQuote() {
 // Auto-refresh Quotes
 function myQuotes() {
   printQuote();
-  document.querySelector('body').style.backgroundColor = randomRGB(randomValue);
 }
 
 let autoQuotes = setInterval(myQuotes, 5000);
@@ -155,6 +154,8 @@ function printQuote() {
   `;
   // Display The Random Quote To The Page
   document.getElementById('quote-box').innerHTML = htmlString;
+  // Randomly Change Background Color
+  document.querySelector('body').style.backgroundColor = randomRGB(randomValue);
 
   return htmlString;
 }
